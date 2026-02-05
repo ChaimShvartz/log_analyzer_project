@@ -1,0 +1,8 @@
+import csv
+
+def load_data(data_path) -> list[list[str]] | None:
+    try:
+        with open(data_path) as f:
+            return [line for line in csv.reader(f)]
+    except Exception as e:
+        print(e)
