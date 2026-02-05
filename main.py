@@ -2,6 +2,7 @@ import csv
 
 DATA_PATH = 'network_traffic.log'
 INTERNAL_ADDRESSES = ('192.168', '10')
+SENSITIVE_PORT = ['22', '23', '3389']
 
 def load_data(data_path) -> list[list[str]] | None:
     try:
@@ -13,7 +14,10 @@ def load_data(data_path) -> list[list[str]] | None:
 def get_external_addresses(data):
     return [line[1] for line in data if not line[1].startswith(INTERNAL_ADDRESSES)]
 
+def get_sensitive_port(data):
+    return [line for line in data if line[3] in SENSITIVE_PORT]
 
 if __name__ == '__main__':
-    # print(load_data('DATA_PATH'))
-    print(get_external_addresses(load_data(DATA_PATH)))
+    # print(load_data(DATA_PATH))
+    # print(get_external_addresses(load_data(DATA_PATH)))
+    print(get_sensitive_port(load_data(DATA_PATH)))
