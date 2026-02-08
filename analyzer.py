@@ -1,4 +1,5 @@
 from config import *
+from reader import *
 
 def get_external_addresses(data) -> list:
     return [line[gloss['source_ip']] for line in data if not line[gloss['source_ip']].startswith(INTERNAL_ADDRESSES)]
@@ -10,6 +11,4 @@ def get_unusual_size_ports(data) -> list:
     return [line for line in data if int(line[gloss['size']]) > PACKET_LARGE]
 
 def tag_bigger_ports(data):
-    for line in data:
-        line.append("LARGE" if int(line[gloss['size']]) > PACKET_LARGE else "NORMAL")
-    return data
+    return [(line, "LARGE" if int(line[gloss["size"]]) > PACKET_LARGE else "NORMAL") for line in data]

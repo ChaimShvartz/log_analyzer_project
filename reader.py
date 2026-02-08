@@ -1,4 +1,5 @@
 import csv
+from config import *
 
 def load_data(data_path) -> list[list[str]] | None:
     try:
@@ -6,3 +7,5 @@ def load_data(data_path) -> list[list[str]] | None:
             return [line for line in csv.reader(f)]
     except Exception as e:
         print(e)
+
+print(load_data(DATA_PATH))
