@@ -7,5 +7,3 @@ def get_counter_dict(data):
 
 def get_port_to_protocol_mapping(data):
     return {line[gloss["port"]]: line[gloss["protocol"]] for line in data}
-
-print(get_port_to_protocol_mapping(load_data(DATA_PATH)))
