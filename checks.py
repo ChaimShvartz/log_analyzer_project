@@ -19,4 +19,17 @@ def get_suspicions(data):
 def get_addresses_with_2_suspicions(dict_suspects):
     return [pair for pair in dict_suspects.items() if len(pair[1]) > 1]
 
-print(len(get_addresses_with_2_suspicions(get_suspicions(load_data(DATA_PATH)))))
+suspicions_checks = {
+    "external_addresses": lambda log: not (log[gloss["source_ip"]]).startswith(INTERNAL_ADDRESSES),
+    "night_activity": lambda log: 0 <= int(log[gloss["timestamp"]][11:13]) < 6,
+    "sensitive_ports": lambda log: log[gloss["port"]] in SENSITIVE_PORT,
+    "large_ports": lambda log: int(log[gloss["size"]]) > LARGE_PACKET
+}
+def filter_suspicions(log):
+    return filter(lambda sus: suspicions_checks[sus](log), suspicions_checks)
+
+def filter_logs_suspicions(data):
+    return map(filter_suspicions, data)
+
+def filter_logs_with_2_suspicions(suspicions_list):
+    return list(filter(lambda log_suspicions: len(log_suspicions) > 1, suspicions_list))

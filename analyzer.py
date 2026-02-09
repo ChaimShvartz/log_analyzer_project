@@ -15,4 +15,10 @@ def get_night_activity(data):
     return [line for line in data if (0 <= int(line[gloss["timestamp"]][11:13]) < 6)]
 
 def tag_bigger_ports(data):
-    return [(line, "LARGE" if int(line[gloss["size"]]) > PACKET_LARGE else "NORMAL") for line in data]
+    return [(line, "LARGE" if int(line[gloss["size"]]) > LARGE_PACKET else "NORMAL") for line in data]
+
+def filter_sensitive_ports(data):
+    return list(filter(lambda log: log[gloss["port"]] in SENSITIVE_PORT, data))
+
+def filter_night_activity(data):
+    return list(filter(lambda log: 0 <= int(log[gloss["timestamp"]][11:13]) < 6, data))

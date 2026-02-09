@@ -8,4 +8,3 @@ def load_data(data_path) -> list[list[str]] | None:
     except Exception as e:
         print(e)
 
-print(load_data(DATA_PATH))
