@@ -19,3 +19,6 @@ def tag_bigger_ports(data):
 
 def filter_sensitive_ports(data):
     return list(filter(lambda log: log[gloss["port"]] in SENSITIVE_PORT, data))
+
+def filter_night_activity(data):
+    return list(filter(lambda log: 0 <= int(log[gloss["timestamp"]][11:13]) < 6, data))
