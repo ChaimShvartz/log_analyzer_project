@@ -11,4 +11,6 @@ def get_port_to_protocol_mapping(data):
 def get_time(data):
     times = map(lambda log: log[gloss["timestamp"]][11:13], data)
     return list(map(lambda time: time if time[0] != '0' else time[1], times))
-print(get_time(load_data(DATA_PATH)))
+
+def convert_bytes_to_KB(sizes):
+    return list(map(lambda size: size / 1024, sizes))
