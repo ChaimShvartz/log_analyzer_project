@@ -18,3 +18,10 @@ def get_suspicions(data):
 
 def get_addresses_with_2_suspicions(dict_suspects):
     return [pair for pair in dict_suspects.items() if len(pair[1]) > 1]
+
+suspicions_checks = {
+    "external_addresses": lambda log: log[gloss["source_ip"]] not in INTERNAL_ADDRESSES,
+    "night_activity": lambda log: 0 <= int(log[gloss["timestamp"]][11:13]) < 6,
+    "sensitive_ports": lambda log: log[gloss["port"]] in SENSITIVE_PORT,
+    "large_ports": lambda log: int(log[gloss["size"]] > LARGE_PACKET)
+}
