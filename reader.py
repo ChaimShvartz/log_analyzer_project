@@ -1,5 +1,4 @@
 import csv
-from config import *
 
 def load_data(data_path) -> list[list[str]] | None:
     try:

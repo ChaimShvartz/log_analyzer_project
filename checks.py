@@ -1,5 +1,4 @@
 from config import *
-from reader import *
 from analyzer import *
 from reporter import get_counter_dict
 
@@ -42,6 +41,3 @@ def gen_filter_suspect_logs(data):
 def gen_suspicions_list_by_log(data):
     for log in data:
         yield log, list(filter_suspicions(log))
-
-data = gen_load_data(DATA_PATH)
-print(*list(log for log in list(gen_suspicions_list_by_log(data)) if log[1]), sep='\n')

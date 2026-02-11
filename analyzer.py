@@ -1,5 +1,5 @@
 from config import *
-from reader import load_data
+from checks import gen_filter_suspect_logs
 
 
 def get_external_addresses(data) -> list:
@@ -22,3 +22,6 @@ def filter_sensitive_ports(data):
 
 def filter_night_activity(data):
     return list(filter(lambda log: 0 <= int(log[gloss["timestamp"]][11:13]) < 6, data))
+
+def count_suspect_logs(data):
+    return sum(1 for _ in gen_filter_suspect_logs(data))
