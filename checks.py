@@ -1,5 +1,4 @@
 from config import *
-from reader import *
 from analyzer import *
 from reporter import get_counter_dict
 
@@ -33,3 +32,12 @@ def filter_logs_suspicions(data):
 
 def filter_logs_with_2_suspicions(suspicions_list):
     return list(filter(lambda log_suspicions: len(log_suspicions) > 1, suspicions_list))
+
+def gen_filter_suspect_logs(data):
+    for log in data:
+        if any(filter_suspicions(log)):
+            yield log
+
+def gen_suspicions_list_by_log(data):
+    for log in data:
+        yield log, list(filter_suspicions(log))

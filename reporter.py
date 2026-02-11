@@ -1,5 +1,4 @@
 from config import *
-from reader import load_data
 
 
 def get_counter_dict(data):
