@@ -33,3 +33,8 @@ def filter_logs_suspicions(data):
 
 def filter_logs_with_2_suspicions(suspicions_list):
     return list(filter(lambda log_suspicions: len(log_suspicions) > 1, suspicions_list))
+
+def gen_filter_suspect_logs(data):
+    for log in data:
+        if any(filter_suspicions(log)):
+            yield log

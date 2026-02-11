@@ -12,7 +12,7 @@ def load_data(data_path) -> list[list[str]] | None:
 def gen_load_data(data_path):
     try:
         with open(data_path) as f:
-            for log in f:
+            for log in csv.reader(f):
                 yield log
     except Exception:
         raise StopIteration("File not found")
