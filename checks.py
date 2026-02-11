@@ -38,3 +38,10 @@ def gen_filter_suspect_logs(data):
     for log in data:
         if any(filter_suspicions(log)):
             yield log
+
+def gen_suspicions_list_by_log(data):
+    for log in data:
+        yield log, list(filter_suspicions(log))
+
+data = gen_load_data(DATA_PATH)
+print(*list(log for log in list(gen_suspicions_list_by_log(data)) if log[1]), sep='\n')
